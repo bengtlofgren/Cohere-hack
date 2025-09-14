@@ -6,7 +6,8 @@
     "capacity": 200,
     "pricing": "£2,500/day",
     "description": "State-of-the-art innovation campus with cutting-edge labs and flexible event spaces perfect for tech hackathons.",
-    "amenities": ["WiFi", "Smart Boards", "Labs", "Auditorium", "Catering Kitchen"]  },
+    "amenities": ["WiFi", "Smart Boards", "Labs", "Auditorium", "Catering Kitchen"],
+    "contact": "events@imperial.ac.uk"  },
   {
     "id": "venue-2",
     "name": "Level39 Canary Wharf",
@@ -14,7 +15,8 @@
     "capacity": 150,
     "pricing": "£3,000/day",
     "description": "Europe's largest fintech accelerator space with panoramic views of London's financial district.",
-    "amenities": ["WiFi", "Trading Floor Views", "Meeting Rooms", "Kitchen", "Networking Lounge"]  },
+    "amenities": ["WiFi", "Trading Floor Views", "Meeting Rooms", "Kitchen", "Networking Lounge"],
+    "contact": "bookings@level39.co"  },
   {
     "id": "venue-3",
     "name": "Google Campus London",
@@ -22,7 +24,8 @@
     "capacity": 120,
     "pricing": "£2,000/day",
     "description": "Creative hub in the heart of East London's tech ecosystem with modern collaboration spaces.",
-    "amenities": ["WiFi", "Event Space", "Café", "Rooftop Terrace", "Mentorship Rooms"]  },
+    "amenities": ["WiFi", "Event Space", "Café", "Rooftop Terrace", "Mentorship Rooms"],
+    "contact": "events@campus.co"  },
   {
     "id": "venue-4",
     "name": "King's Cross Innovation Hub",
@@ -30,7 +33,8 @@
     "capacity": 180,
     "pricing": "£2,800/day",
     "description": "Modern tech campus near major universities with excellent transport links and cutting-edge facilities.",
-    "amenities": ["WiFi", "Smart Boards", "Video Conferencing", "Catering", "Underground Access"]  },
+    "amenities": ["WiFi", "Smart Boards", "Video Conferencing", "Catering", "Underground Access"],
+    "contact": "venue@kingscross.com"  },
   {
     "id": "venue-5",
     "name": "Microsoft Reactor London",
@@ -38,7 +42,8 @@
     "capacity": 100,
     "pricing": "£1,800/day",
     "description": "Developer community space designed for startups and tech entrepreneurs with modern facilities.",
-    "amenities": ["WiFi", "Presentation Equipment", "Streaming Setup", "Kitchen", "Quiet Zones"]  },
+    "amenities": ["WiFi", "Presentation Equipment", "Streaming Setup", "Kitchen", "Quiet Zones"],
+    "contact": "events@microsoftreactor.com"  },
   {
     "id": "venue-6",
     "name": "UCL Here East",
@@ -46,7 +51,8 @@
     "capacity": 220,
     "pricing": "£3,200/day",
     "description": "Olympic legacy campus specializing in creative technology and digital innovation with world-class facilities.",
-    "amenities": ["WiFi", "Innovation Labs", "Conference Halls", "Food Court", "Olympic Park Views"]  },
+    "amenities": ["WiFi", "Innovation Labs", "Conference Halls", "Food Court", "Olympic Park Views"],
+    "contact": "venues@ucl.ac.uk"  },
   {
     "id": "venue-7",
     "name": "WeWork Moorgate",
@@ -54,7 +60,8 @@
     "capacity": 90,
     "pricing": "£1,500/day",
     "description": "Flexible co-working space in the financial district with modern amenities and startup atmosphere.",
-    "amenities": ["WiFi", "Meeting Rooms", "Kitchen", "Phone Booths", "Printing"]  },
+    "amenities": ["WiFi", "Meeting Rooms", "Kitchen", "Phone Booths", "Printing"],
+    "contact": "events@wework.com"  },
   {
     "id": "venue-8",
     "name": "The Shard Event Spaces",
@@ -62,7 +69,8 @@
     "capacity": 300,
     "pricing": "£5,000/day",
     "description": "Premium event space in London's tallest building with breathtaking panoramic city views.",
-    "amenities": ["WiFi", "Premium A/V", "Catering Kitchen", "City Views", "Valet Service"]  },
+    "amenities": ["WiFi", "Premium A/V", "Catering Kitchen", "City Views", "Valet Service"],
+    "contact": "events@the-shard.com"  },
   {
     "id": "venue-9",
     "name": "Makers Academy",
@@ -70,7 +78,8 @@
     "capacity": 80,
     "pricing": "£1,200/day",
     "description": "Coding bootcamp space optimized for intensive programming sessions in trendy East London.",
-    "amenities": ["WiFi", "Workstations", "Multiple Monitors", "Kitchen", "Study Pods"]  },
+    "amenities": ["WiFi", "Workstations", "Multiple Monitors", "Kitchen", "Study Pods"],
+    "contact": "space@makersacademy.com"  },
   {
     "id": "venue-10",
     "name": "Lloyds of London",
@@ -78,7 +87,8 @@
     "capacity": 160,
     "pricing": "£4,200/day",
     "description": "Historic and iconic building in the financial heart of London with prestigious event spaces.",
-    "amenities": ["WiFi", "Heritage Architecture", "Premium Catering", "Concierge", "Private Security"]  },
+    "amenities": ["WiFi", "Heritage Architecture", "Premium Catering", "Concierge", "Private Security"],
+    "contact": "events@lloyds.com"  },
     {
       "id": "venue-11",
       "name": "Cohere HQ",
@@ -86,6 +96,7 @@
       "capacity": 50,
       "pricing": "£1,000/day",
       "description": "Modern office in central soho with all the amenities you need for a productive hackathon.",
-      "amenities": ["WiFi", "Free token credits", "Whiteboards", "Projectors", "Catering", "Breakout Areas"]
+      "amenities": ["WiFi", "Free token credits", "Whiteboards", "Projectors", "Catering", "Breakout Areas"],
+      "contact": "events@cohere.ai"
     }
 ]

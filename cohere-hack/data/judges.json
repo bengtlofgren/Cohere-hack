@@ -5,7 +5,8 @@
     "role": "judge",
     "expertise": ["Climate Tech", "Venture Capital", "Sustainability"],
     "company": "Breakthrough Energy Ventures",
-    "bio": "Partner at Breakthrough Energy Ventures with 15+ years investing in climate solutions. Former Tesla executive."
+    "bio": "Partner at Breakthrough Energy Ventures with 15+ years investing in climate solutions. Former Tesla executive.",
+    "contact": "sarah.chen@bev.com"
   },
   {
     "id": "judge-2",
@@ -13,7 +14,8 @@
     "role": "judge",
     "expertise": ["AI/ML", "Computer Vision", "Robotics"],
     "company": "OpenAI",
-    "bio": "Research Scientist at OpenAI specializing in computer vision and robotics applications."
+    "bio": "Research Scientist at OpenAI specializing in computer vision and robotics applications.",
+    "contact": "marcus.rodriguez@openai.com"
   },
   {
     "id": "judge-3",
@@ -21,7 +23,8 @@
     "role": "judge",
     "expertise": ["Fintech", "Blockchain", "Digital Payments"],
     "company": "Stripe",
-    "bio": "Head of Emerging Markets at Stripe, PhD in Economics from Stanford. Expert in financial inclusion."
+    "bio": "Head of Emerging Markets at Stripe, PhD in Economics from Stanford. Expert in financial inclusion.",
+    "contact": "priya.patel@stripe.com"
   },
   {
     "id": "judge-4",
@@ -29,7 +32,8 @@
     "role": "judge",
     "expertise": ["Healthcare", "Biotech", "Medical Devices"],
     "company": "Johnson & Johnson Innovation",
-    "bio": "VP of Digital Health at J&J Innovation, former physician turned healthcare entrepreneur."
+    "bio": "VP of Digital Health at J&J Innovation, former physician turned healthcare entrepreneur.",
+    "contact": "james.kim@jnjinnovation.com"
   },
   {
     "id": "judge-5",
@@ -37,6 +41,7 @@
     "role": "judge",
     "expertise": ["EdTech", "Social Impact", "Non-profit"],
     "company": "Khan Academy",
-    "bio": "Chief Product Officer at Khan Academy, passionate about democratizing education through technology."
+    "bio": "Chief Product Officer at Khan Academy, passionate about democratizing education through technology.",
+    "contact": "lisa.thompson@khanacademy.org"
   }
 ]
