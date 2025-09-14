@@ -1,0 +1,102 @@
+[
+  {
+    "id": "mentor-1",
+    "name": "Alex Wong",
+    "role": "mentor",
+    "expertise": ["Full-stack Development", "React", "Node.js"],
+    "company": "Meta",
+    "bio": "Senior Software Engineer at Meta with expertise in scalable web applications and developer tools.",
+    "matchScore": 92,
+    "confidence": 90
+  },
+  {
+    "id": "mentor-2",
+    "name": "Rachel Green",
+    "role": "mentor",
+    "expertise": ["UX Design", "Product Management", "User Research"],
+    "company": "Airbnb",
+    "bio": "Principal Product Designer at Airbnb, specializing in user experience and design systems.",
+    "matchScore": 89,
+    "confidence": 87
+  },
+  {
+    "id": "mentor-3",
+    "name": "David Liu",
+    "role": "mentor",
+    "expertise": ["Data Science", "Machine Learning", "Python"],
+    "company": "Netflix",
+    "bio": "Senior Data Scientist at Netflix working on recommendation systems and ML infrastructure.",
+    "matchScore": 94,
+    "confidence": 92
+  },
+  {
+    "id": "mentor-4",
+    "name": "Maria Santos",
+    "role": "mentor",
+    "expertise": ["Mobile Development", "iOS", "Swift"],
+    "company": "Apple",
+    "bio": "iOS Engineer at Apple with 8+ years building consumer mobile applications.",
+    "matchScore": 87,
+    "confidence": 85
+  },
+  {
+    "id": "mentor-5",
+    "name": "Kevin Zhang",
+    "role": "mentor",
+    "expertise": ["DevOps", "Cloud Infrastructure", "AWS"],
+    "company": "Amazon",
+    "bio": "Principal Engineer at AWS specializing in cloud architecture and scalable systems.",
+    "matchScore": 90,
+    "confidence": 88
+  },
+  {
+    "id": "mentor-6",
+    "name": "Jennifer Adams",
+    "role": "mentor",
+    "expertise": ["Cybersecurity", "Privacy", "Compliance"],
+    "company": "Cloudflare",
+    "bio": "Security Engineer at Cloudflare with expertise in web security and privacy technologies.",
+    "matchScore": 86,
+    "confidence": 84
+  },
+  {
+    "id": "mentor-7",
+    "name": "Carlos Mendez",
+    "role": "mentor",
+    "expertise": ["Blockchain", "Web3", "Smart Contracts"],
+    "company": "Coinbase",
+    "bio": "Blockchain Engineer at Coinbase building decentralized finance applications.",
+    "matchScore": 88,
+    "confidence": 86
+  },
+  {
+    "id": "mentor-8",
+    "name": "Emily Foster",
+    "role": "mentor",
+    "expertise": ["Growth Marketing", "Analytics", "A/B Testing"],
+    "company": "Uber",
+    "bio": "Growth Product Manager at Uber with expertise in user acquisition and retention strategies.",
+    "matchScore": 85,
+    "confidence": 83
+  },
+  {
+    "id": "mentor-9",
+    "name": "Robert Taylor",
+    "role": "mentor",
+    "expertise": ["Hardware", "IoT", "Embedded Systems"],
+    "company": "Tesla",
+    "bio": "Hardware Engineer at Tesla working on autonomous vehicle systems and IoT devices.",
+    "matchScore": 91,
+    "confidence": 89
+  },
+  {
+    "id": "mentor-10",
+    "name": "Sophia Lee",
+    "role": "mentor",
+    "expertise": ["Business Development", "Partnerships", "Strategy"],
+    "company": "Google",
+    "bio": "Business Development Manager at Google focusing on startup partnerships and ecosystem growth.",
+    "matchScore": 87,
+    "confidence": 85
+  }
+]

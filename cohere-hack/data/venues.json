@@ -1,0 +1,112 @@
+[
+  {
+    "id": "venue-1",
+    "name": "Stanford d.school",
+    "location": "Stanford, CA",
+    "capacity": 150,
+    "pricing": "$2,000/day",
+    "description": "Design thinking hub with flexible spaces, whiteboards, and collaborative areas perfect for innovation.",
+    "amenities": ["WiFi", "Projectors", "Whiteboards", "Kitchen", "Parking"],
+    "matchScore": 95,
+    "confidence": 92
+  },
+  {
+    "id": "venue-2",
+    "name": "UC Berkeley Sutardja Dai Hall",
+    "location": "Berkeley, CA",
+    "capacity": 200,
+    "pricing": "$3,500/day",
+    "description": "State-of-the-art engineering building with modern labs and presentation spaces.",
+    "amenities": ["WiFi", "A/V Equipment", "Labs", "Auditorium", "Food Court"],
+    "matchScore": 88,
+    "confidence": 89
+  },
+  {
+    "id": "venue-3",
+    "name": "Galvanize San Francisco",
+    "location": "SOMA, San Francisco",
+    "capacity": 120,
+    "pricing": "$1,800/day",
+    "description": "Tech-focused co-working space in the heart of SF's startup ecosystem.",
+    "amenities": ["WiFi", "Event Space", "Kitchen", "Rooftop", "Mentorship Rooms"],
+    "matchScore": 91,
+    "confidence": 87
+  },
+  {
+    "id": "venue-4",
+    "name": "Google Developer Space",
+    "location": "Mountain View, CA",
+    "capacity": 100,
+    "pricing": "$2,500/day",
+    "description": "Modern developer-focused venue with cutting-edge technology and collaboration tools.",
+    "amenities": ["WiFi", "Smart Boards", "Video Conferencing", "Catering", "Parking"],
+    "matchScore": 93,
+    "confidence": 94
+  },
+  {
+    "id": "venue-5",
+    "name": "Microsoft Reactor",
+    "location": "San Francisco, CA",
+    "capacity": 80,
+    "pricing": "$1,500/day",
+    "description": "Community space designed for developers and startups with modern facilities.",
+    "amenities": ["WiFi", "Presentation Equipment", "Streaming Setup", "Kitchen", "Lounge"],
+    "matchScore": 86,
+    "confidence": 85
+  },
+  {
+    "id": "venue-6",
+    "name": "UCSF Mission Bay",
+    "location": "Mission Bay, San Francisco",
+    "capacity": 180,
+    "pricing": "$3,000/day",
+    "description": "Biotech-focused campus with labs and conference facilities, ideal for health tech hackathons.",
+    "amenities": ["WiFi", "Labs", "Conference Rooms", "Cafeteria", "Parking"],
+    "matchScore": 89,
+    "confidence": 91
+  },
+  {
+    "id": "venue-7",
+    "name": "WeWork SOMA",
+    "location": "SOMA, San Francisco",
+    "capacity": 90,
+    "pricing": "$1,200/day",
+    "description": "Flexible co-working space with modern amenities and startup atmosphere.",
+    "amenities": ["WiFi", "Meeting Rooms", "Kitchen", "Phone Booths", "Printing"],
+    "matchScore": 82,
+    "confidence": 83
+  },
+  {
+    "id": "venue-8",
+    "name": "Salesforce Tower Ohana Floor",
+    "location": "Downtown San Francisco",
+    "capacity": 250,
+    "pricing": "$4,000/day",
+    "description": "Premium event space with stunning city views and enterprise-grade facilities.",
+    "amenities": ["WiFi", "A/V Equipment", "Catering Kitchen", "City Views", "Valet Parking"],
+    "matchScore": 94,
+    "confidence": 96
+  },
+  {
+    "id": "venue-9",
+    "name": "Hack Reactor",
+    "location": "San Francisco, CA",
+    "capacity": 60,
+    "pricing": "$1,000/day",
+    "description": "Coding bootcamp space optimized for intensive programming sessions.",
+    "amenities": ["WiFi", "Workstations", "Monitors", "Kitchen", "Study Rooms"],
+    "matchScore": 87,
+    "confidence": 84
+  },
+  {
+    "id": "venue-10",
+    "name": "The Battery",
+    "location": "Financial District, SF",
+    "capacity": 140,
+    "pricing": "$3,500/day",
+    "description": "Exclusive private club with sophisticated event spaces and networking opportunities.",
+    "amenities": ["WiFi", "Premium A/V", "Catering", "Concierge", "Valet"],
+    "matchScore": 90,
+    "confidence": 88
+  }
+]

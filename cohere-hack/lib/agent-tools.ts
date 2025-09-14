@@ -1,4 +1,13 @@
-import { sampleVenues, sampleJudges, sampleMentors, sampleSponsors } from "@/data/sample-data"
+import venuesData from "@/data/venues.json"
+import judgesData from "@/data/judges.json"
+import mentorsData from "@/data/mentors.json"
+import sponsorsData from "@/data/sponsors.json"
+import { Venue, Stakeholder, Sponsor } from "@/types/hackathon"
+
+const sampleVenues: Venue[] = venuesData
+const sampleJudges: Stakeholder[] = judgesData
+const sampleMentors: Stakeholder[] = mentorsData
+const sampleSponsors: Sponsor[] = sponsorsData
 
 export interface ToolResult {
   success: boolean

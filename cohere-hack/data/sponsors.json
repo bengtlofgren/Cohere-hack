@@ -1,0 +1,56 @@
+[
+  {
+    "id": "sponsor-1",
+    "name": "Microsoft",
+    "tier": "title",
+    "contribution": "$50,000 + Azure credits",
+    "requirements": ["Logo placement", "Opening keynote", "Judging panel seat"],
+    "matchScore": 95,
+    "confidence": 93
+  },
+  {
+    "id": "sponsor-2",
+    "name": "Google Cloud",
+    "tier": "gold",
+    "contribution": "$25,000 + GCP credits",
+    "requirements": ["Workshop slot", "Booth space", "Swag distribution"],
+    "matchScore": 92,
+    "confidence": 90
+  },
+  {
+    "id": "sponsor-3",
+    "name": "AWS",
+    "tier": "gold",
+    "contribution": "$20,000 + AWS credits",
+    "requirements": ["Technical workshop", "Mentor participation", "Prize category"],
+    "matchScore": 89,
+    "confidence": 87
+  },
+  {
+    "id": "sponsor-4",
+    "name": "Stripe",
+    "tier": "silver",
+    "contribution": "$10,000 + API credits",
+    "requirements": ["Fintech challenge", "Mentor support", "Demo day presence"],
+    "matchScore": 86,
+    "confidence": 84
+  },
+  {
+    "id": "sponsor-5",
+    "name": "Twilio",
+    "tier": "silver",
+    "contribution": "$8,000 + Communication APIs",
+    "requirements": ["API workshop", "Communication challenge", "Swag"],
+    "matchScore": 84,
+    "confidence": 82
+  },
+  {
+    "id": "sponsor-6",
+    "name": "MongoDB",
+    "tier": "bronze",
+    "contribution": "$5,000 + Database credits",
+    "requirements": ["Database workshop", "Technical mentoring", "Logo placement"],
+    "matchScore": 82,
+    "confidence": 80
+  }
+]
