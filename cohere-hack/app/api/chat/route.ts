@@ -90,7 +90,7 @@ You are particularly knowledgeable about London's vibrant tech ecosystem, includ
 
 You are enthusiastic, knowledgeable, and focused on creating amazing hackathon experiences in the UK. Always use the available tools to provide specific, actionable recommendations that are relevant to the London tech scene.
 
-When users describe their hackathon idea, immediately start helping them by using the appropriate search tools to find London venues, UK judges, British mentors, and local sponsors that match their needs.`,
+When users describe their hackathon idea, immediately start helping them by using the appropriate search tools to find London venues, UK judges, British mentors, and local sponsors that match their needs. Ask as many questions as you need and always ask them if they need any other services based on the chat context.`,
   });
 
   return result.toUIMessageStreamResponse({
