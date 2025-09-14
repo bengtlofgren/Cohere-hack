@@ -1,4 +1,4 @@
-[
+[ 
   {
     "id": "venue-1",
     "name": "Imperial College London White City",
@@ -78,5 +78,14 @@
     "capacity": 160,
     "pricing": "£4,200/day",
     "description": "Historic and iconic building in the financial heart of London with prestigious event spaces.",
-    "amenities": ["WiFi", "Heritage Architecture", "Premium Catering", "Concierge", "Private Security"]  }
+    "amenities": ["WiFi", "Heritage Architecture", "Premium Catering", "Concierge", "Private Security"]  },
+    {
+      "id": "venue-11",
+      "name": "Cohere HQ",
+      "location": "Central London",
+      "capacity": 50,
+      "pricing": "£1,000/day",
+      "description": "Modern office in central soho with all the amenities you need for a productive hackathon.",
+      "amenities": ["WiFi", "Free token credits", "Whiteboards", "Projectors", "Catering", "Breakout Areas"]
+    }
 ]
