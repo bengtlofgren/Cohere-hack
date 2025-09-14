@@ -1,12 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useChat } from "@ai-sdk/react";
+import { DefaultChatTransport } from "ai";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Zap } from "lucide-react";
-import type { HackathonPlan } from "@/types/hackathon";
-
 import {
   Conversation,
   ConversationContent,
@@ -25,68 +24,20 @@ import {
 } from "@/components/ai-elements/prompt-input";
 import { Response } from "@/components/ai-elements/response";
 import { Loader } from "@/components/ai-elements/loader";
-import { Tool, ToolContent, ToolTrigger } from "@/components/ai-elements/tool";
+import { VenueSearchTool } from "@/components/custom-tools/venue-search-tool";
+import { JudgeSearchTool } from "@/components/custom-tools/judge-search-tool";
+import { MentorSearchTool } from "@/components/custom-tools/mentor-search-tool";
+import { SponsorSearchTool } from "@/components/custom-tools/sponsor-search-tool";
+import type { ToolUIPart } from "ai";
 
-interface ChatInterfaceProps {
-  hackathonPlan: HackathonPlan;
-  setHackathonPlan: (plan: HackathonPlan) => void;
-}
-
-export function ChatInterface({
-  hackathonPlan,
-  setHackathonPlan,
-}: ChatInterfaceProps) {
+export function ChatInterface() {
   const [input, setInput] = useState("");
 
   const { messages, sendMessage, status } = useChat({
-    api: "/api/chat",
-    initialMessages: [
-      {
-        id: "1",
-        role: "assistant",
-        content:
-          "Hi! I'm HackGenie, your AI hackathon planning assistant with 10+ years of experience organizing successful events. I'll help you plan an amazing hackathon in under 5 minutes by finding the perfect venues, expert judges, experienced mentors, and potential sponsors. What kind of hackathon are you planning?",
-      },
-    ],
+    transport: new DefaultChatTransport({
+      api: "/api/chat",
+    }),
   });
-
-  useEffect(() => {
-    const lastMessage = messages[messages.length - 1];
-    if (lastMessage?.role === "assistant" && lastMessage.toolInvocations) {
-      lastMessage.toolInvocations.forEach((toolCall) => {
-        if (toolCall.toolName === "searchVenues" && toolCall.result?.success) {
-          setHackathonPlan((prev) => ({
-            ...prev,
-            venues: toolCall.result.data,
-          }));
-        } else if (
-          toolCall.toolName === "searchJudges" &&
-          toolCall.result?.success
-        ) {
-          setHackathonPlan((prev) => ({
-            ...prev,
-            judges: toolCall.result.data,
-          }));
-        } else if (
-          toolCall.toolName === "searchMentors" &&
-          toolCall.result?.success
-        ) {
-          setHackathonPlan((prev) => ({
-            ...prev,
-            mentors: toolCall.result.data,
-          }));
-        } else if (
-          toolCall.toolName === "searchSponsors" &&
-          toolCall.result?.success
-        ) {
-          setHackathonPlan((prev) => ({
-            ...prev,
-            sponsors: toolCall.result.data,
-          }));
-        }
-      });
-    }
-  }, [messages, setHackathonPlan]);
 
   const quickStartOptions = [
     "Climate tech hackathon for 100 people in SF",
@@ -99,7 +50,7 @@ export function ChatInterface({
 
   const handleSubmit = (message: PromptInputMessage) => {
     const hasText = Boolean(message.text);
-    if (!hasText) return;
+    if (!hasText || !message.text) return;
 
     sendMessage({ text: message.text });
     setInput("");
@@ -109,10 +60,52 @@ export function ChatInterface({
     sendMessage({ text: message });
   };
 
+  const isLoading = status === "submitted" || status === "streaming";
+
+  // Extract text content from message
+  const getMessageText = (message: any) => {
+    if (message.parts && Array.isArray(message.parts)) {
+      const textPart = message.parts.find((p: any) => p.type === "text");
+      return textPart?.text || "";
+    }
+    return message.content || "";
+  };
+
+
+
+
+
   return (
     <div className="flex flex-col h-full">
       <Conversation className="h-full">
         <ConversationContent>
+          {/* Welcome message when no messages */}
+          {messages.length === 0 && (
+            <div>
+              <Message from="assistant">
+                <MessageContent>
+                  <div className="flex gap-3 items-start">
+                    <Avatar className="w-8 h-8 flex-shrink-0">
+                      <AvatarFallback className="bg-blue-600 text-white text-xs font-semibold">
+                        HG
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="flex-1">
+                      <Response>
+                        Hi! I'm HackGenie, your AI hackathon planning assistant
+                        with 10+ years of experience organizing successful
+                        events. I'll help you plan an amazing hackathon in under
+                        5 minutes by finding the perfect venues, expert judges,
+                        experienced mentors, and potential sponsors. What kind
+                        of hackathon are you planning?
+                      </Response>
+                    </div>
+                  </div>
+                </MessageContent>
+              </Message>
+            </div>
+          )}
+
           {messages.map((message) => (
             <div key={message.id}>
               <Message from={message.role}>
@@ -125,52 +118,79 @@ export function ChatInterface({
                         </AvatarFallback>
                       </Avatar>
                       <div className="flex-1">
-                        <Response>{message.content}</Response>
+                        <Response>{getMessageText(message)}</Response>
                       </div>
                     </div>
                   )}
                   {message.role === "user" && (
                     <div className="flex justify-end">
                       <div className="bg-blue-600 text-white rounded-lg px-4 py-2 max-w-[80%]">
-                        <Response>{message.content}</Response>
+                        <Response>{getMessageText(message)}</Response>
                       </div>
                     </div>
                   )}
                 </MessageContent>
               </Message>
 
-              {message.toolInvocations?.map((toolCall, index) => (
-                <Tool key={`${message.id}-${index}`} className="mt-2">
-                  <ToolTrigger>
-                    {toolCall.toolName === "searchVenues" &&
-                      "🏢 Searching venues..."}
-                    {toolCall.toolName === "searchJudges" &&
-                      "👨‍⚖️ Finding judges..."}
-                    {toolCall.toolName === "searchMentors" &&
-                      "👨‍🏫 Finding mentors..."}
-                    {toolCall.toolName === "searchSponsors" &&
-                      "💰 Finding sponsors..."}
-                  </ToolTrigger>
-                  <ToolContent>
-                    {toolCall.result?.success ? (
-                      <div className="text-sm text-green-600">
-                        Found {toolCall.result.data?.length || 0} results
-                      </div>
-                    ) : (
-                      <div className="text-sm text-red-600">Search failed</div>
-                    )}
-                  </ToolContent>
-                </Tool>
-              ))}
+              {/* Render custom tool UIs */}
+              {message.parts
+                ?.filter((part) => part.type.startsWith("tool-"))
+                .map((toolPart, index) => {
+                  const toolUIPart = toolPart as ToolUIPart;
+
+                  // Determine tool state and data
+                  const getToolState = () => {
+                    if (toolUIPart.state === "output-error") return "error";
+                    if (toolUIPart.state === "output-available" && toolUIPart.output) return "success";
+                    return "loading";
+                  };
+
+                  const toolState = getToolState();
+                  const toolData = toolState === "success" ? (toolUIPart.output as any)?.data : undefined;
+                  const errorMessage = toolUIPart.errorText;
+
+                  return (
+                    <div key={`${message.id}-tool-${index}`} className="mt-4">
+                      {toolUIPart.type.includes("searchVenues") && (
+                        <VenueSearchTool
+                          state={toolState}
+                          venues={toolData}
+                          error={errorMessage}
+                        />
+                      )}
+                      {toolUIPart.type.includes("searchJudges") && (
+                        <JudgeSearchTool
+                          state={toolState}
+                          judges={toolData}
+                          error={errorMessage}
+                        />
+                      )}
+                      {toolUIPart.type.includes("searchMentors") && (
+                        <MentorSearchTool
+                          state={toolState}
+                          mentors={toolData}
+                          error={errorMessage}
+                        />
+                      )}
+                      {toolUIPart.type.includes("searchSponsors") && (
+                        <SponsorSearchTool
+                          state={toolState}
+                          sponsors={toolData}
+                          error={errorMessage}
+                        />
+                      )}
+                    </div>
+                  );
+                })}
             </div>
           ))}
-          {status === "submitted" && <Loader />}
+          {isLoading && <Loader />}
         </ConversationContent>
         <ConversationScrollButton />
       </Conversation>
 
       {/* Quick Start Options */}
-      {messages.length === 1 && (
+      {messages.length === 0 && (
         <div className="p-4 border-t border-border">
           <div className="flex items-center gap-2 mb-3">
             <Zap className="w-4 h-4 text-blue-600" />
@@ -186,7 +206,7 @@ export function ChatInterface({
                 size="sm"
                 className="w-full justify-start text-left h-auto py-3 px-3 bg-transparent hover:bg-blue-50 hover:border-blue-200 dark:hover:bg-blue-950"
                 onClick={() => handleQuickStart(option)}
-                disabled={status === "submitted"}
+                disabled={isLoading}
               >
                 <span className="text-sm">{option}</span>
               </Button>
@@ -215,9 +235,13 @@ export function ChatInterface({
               <span>Quick Actions</span>
             </PromptInputButton>
           </PromptInputTools>
-          <PromptInputSubmit disabled={!input.trim()} status={status} />
+          <PromptInputSubmit
+            disabled={!input.trim() || isLoading}
+            status={status}
+          />
         </PromptInputToolbar>
       </PromptInput>
     </div>
   );
 }
+

@@ -1,237 +1,118 @@
-"use client"
+"use client";
 
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import type { HackathonPlan } from "@/types/hackathon"
-import { MapPin, Users, Clock, ExternalLink, Calendar, Target, CheckCircle } from "lucide-react"
-import { RecommendationCard } from "@/components/recommendation-card"
-import { StatusIndicator } from "@/components/status-indicator"
+import { Card, CardContent } from "@/components/ui/card";
+import { Target, MapPin, Users, Trophy, DollarSign, ArrowLeft } from "lucide-react";
 
-interface PlanningBoardProps {
-  hackathonPlan: HackathonPlan
-}
-
-export function PlanningBoard({ hackathonPlan }: PlanningBoardProps) {
-  const hasBasicInfo = hackathonPlan.title || hackathonPlan.description
-  const hasRecommendations =
-    hackathonPlan.venues.length > 0 || hackathonPlan.judges.length > 0 || hackathonPlan.mentors.length > 0
-  const isComplete =
-    hackathonPlan.venues.length > 0 && hackathonPlan.judges.length > 0 && hackathonPlan.mentors.length > 0
-
-  const handleCreateLumaEvent = () => {
-    const eventData = {
-      name: hackathonPlan.title || "Tech Innovation Hackathon",
-      description: hackathonPlan.description || "An amazing hackathon event",
-      venue: hackathonPlan.venues[0]?.name || "TBD",
-      duration: hackathonPlan.duration || "48 hours",
-    }
-
-    const lumaUrl = `https://lu.ma/create?name=${encodeURIComponent(eventData.name)}&description=${encodeURIComponent(eventData.description)}`
-    window.open(lumaUrl, "_blank")
-  }
-
-  const getProgress = () => {
-    let completed = 0
-    const total = 4
-
-    if (hackathonPlan.title) completed++
-    if (hackathonPlan.venues.length > 0) completed++
-    if (hackathonPlan.judges.length > 0) completed++
-    if (hackathonPlan.mentors.length > 0) completed++
-
-    return { completed, total, percentage: Math.round((completed / total) * 100) }
-  }
-
-  const progress = getProgress()
-
+export function PlanningBoard() {
   return (
     <div className="h-full overflow-y-auto">
-      {/* Event Header */}
+      {/* Header */}
       <div className="p-6 border-b border-border bg-card">
-        {hasBasicInfo ? (
-          <div className="space-y-4">
-            <div className="flex items-start justify-between">
-              <div className="flex-1">
-                <h2 className="text-2xl font-bold text-foreground text-balance">{hackathonPlan.title}</h2>
-                {hackathonPlan.description && (
-                  <p className="text-muted-foreground mt-2 text-pretty">{hackathonPlan.description}</p>
-                )}
-              </div>
-              <div className="ml-4">
-                <div className="text-right">
-                  <div className="text-2xl font-bold text-blue-600">{progress.percentage}%</div>
-                  <div className="text-xs text-muted-foreground">Complete</div>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex gap-4 text-sm text-muted-foreground">
-              {hackathonPlan.date && (
-                <div className="flex items-center gap-1">
-                  <Calendar className="w-4 h-4" />
-                  {hackathonPlan.date}
-                </div>
-              )}
-              {hackathonPlan.duration && (
-                <div className="flex items-center gap-1">
-                  <Clock className="w-4 h-4" />
-                  {hackathonPlan.duration}
-                </div>
-              )}
-              {hackathonPlan.venues.length > 0 && (
-                <div className="flex items-center gap-1">
-                  <Users className="w-4 h-4" />
-                  Up to {Math.max(...hackathonPlan.venues.map((v) => v.capacity))} participants
-                </div>
-              )}
-            </div>
-
-            <div className="w-full bg-muted rounded-full h-2">
-              <div
-                className="bg-blue-600 h-2 rounded-full transition-all duration-500 ease-out"
-                style={{ width: `${progress.percentage}%` }}
-              />
-            </div>
+        <div className="text-center py-8">
+          <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
+            <Target className="w-8 h-8 text-muted-foreground" />
           </div>
-        ) : (
-          <div className="text-center py-8">
-            <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
-              <Target className="w-8 h-8 text-muted-foreground" />
-            </div>
-            <h2 className="text-xl font-semibold text-foreground mb-2">Ready to Plan Your Hackathon?</h2>
-            <p className="text-muted-foreground">Start chatting with HackGenie to begin planning your event</p>
-          </div>
-        )}
+          <h2 className="text-xl font-semibold text-foreground mb-2">
+            AI-Powered Hackathon Planning
+          </h2>
+          <p className="text-muted-foreground max-w-lg mx-auto">
+            Chat with HackGenie to plan your hackathon. I'll help you find venues, judges, mentors, and sponsors using AI-powered search tools.
+          </p>
+        </div>
       </div>
 
-      {/* Planning Sections */}
+      {/* Features Section */}
       <div className="p-6 space-y-6">
-        {/* Venues Section */}
-        <div>
-          <div className="flex items-center gap-2 mb-4">
-            <MapPin className="w-5 h-5 text-muted-foreground" />
-            <h3 className="text-lg font-semibold">Venues</h3>
-            {hackathonPlan.venues.length > 0 ? (
-              <StatusIndicator status="completed" label={`${hackathonPlan.venues.length} found`} />
-            ) : (
-              <StatusIndicator status="pending" label="Pending" />
-            )}
-          </div>
-
-          {hackathonPlan.venues.length > 0 ? (
-            <div className="grid gap-4">
-              {hackathonPlan.venues.map((venue) => (
-                <RecommendationCard
-                  key={venue.id}
-                  title={venue.name}
-                  subtitle={venue.location}
-                  description={venue.description}
-                  matchScore={venue.matchScore}
-                  confidence={venue.confidence}
-                  details={[
-                    `Capacity: ${venue.capacity} people`,
-                    `Pricing: ${venue.pricing}`,
-                    `Amenities: ${venue.amenities.slice(0, 3).join(", ")}${venue.amenities.length > 3 ? "..." : ""}`,
-                  ]}
-                />
-              ))}
-            </div>
-          ) : (
-            <Card className="border-dashed">
-              <CardContent className="p-6 text-center text-muted-foreground">No venues recommended yet</CardContent>
-            </Card>
-          )}
-        </div>
-
-        {/* Judges Section */}
-        <div>
-          <div className="flex items-center gap-2 mb-4">
-            <Users className="w-5 h-5 text-muted-foreground" />
-            <h3 className="text-lg font-semibold">Judges</h3>
-            {hackathonPlan.judges.length > 0 ? (
-              <StatusIndicator status="completed" label={`${hackathonPlan.judges.length} found`} />
-            ) : (
-              <StatusIndicator status="pending" label="Pending" />
-            )}
-          </div>
-
-          {hackathonPlan.judges.length > 0 ? (
-            <div className="grid gap-4">
-              {hackathonPlan.judges.map((judge) => (
-                <RecommendationCard
-                  key={judge.id}
-                  title={judge.name}
-                  subtitle={judge.company}
-                  description={judge.bio}
-                  matchScore={judge.matchScore}
-                  confidence={judge.confidence}
-                  details={[
-                    `Expertise: ${judge.expertise.slice(0, 2).join(", ")}${judge.expertise.length > 2 ? "..." : ""}`,
-                  ]}
-                />
-              ))}
-            </div>
-          ) : (
-            <Card className="border-dashed">
-              <CardContent className="p-6 text-center text-muted-foreground">No judges recommended yet</CardContent>
-            </Card>
-          )}
-        </div>
-
-        {/* Mentors Section */}
-        <div>
-          <div className="flex items-center gap-2 mb-4">
-            <Users className="w-5 h-5 text-muted-foreground" />
-            <h3 className="text-lg font-semibold">Mentors</h3>
-            {hackathonPlan.mentors.length > 0 ? (
-              <StatusIndicator status="completed" label={`${hackathonPlan.mentors.length} found`} />
-            ) : (
-              <StatusIndicator status="pending" label="Pending" />
-            )}
-          </div>
-
-          {hackathonPlan.mentors.length > 0 ? (
-            <div className="grid gap-4">
-              {hackathonPlan.mentors.map((mentor) => (
-                <RecommendationCard
-                  key={mentor.id}
-                  title={mentor.name}
-                  subtitle={mentor.company}
-                  description={mentor.bio}
-                  matchScore={mentor.matchScore}
-                  confidence={mentor.confidence}
-                  details={[
-                    `Expertise: ${mentor.expertise.slice(0, 2).join(", ")}${mentor.expertise.length > 2 ? "..." : ""}`,
-                  ]}
-                />
-              ))}
-            </div>
-          ) : (
-            <Card className="border-dashed">
-              <CardContent className="p-6 text-center text-muted-foreground">No mentors recommended yet</CardContent>
-            </Card>
-          )}
-        </div>
-
-        {isComplete && (
-          <Card className="bg-gradient-to-r from-green-50 to-blue-50 border-green-200 dark:from-green-950 dark:to-blue-950 dark:border-green-800">
-            <CardContent className="p-6 text-center">
-              <div className="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-3">
-                <CheckCircle className="w-6 h-6 text-green-600 dark:text-green-400" />
+        <div className="grid gap-4">
+          <Card className="hover:shadow-md transition-shadow">
+            <CardContent className="p-4">
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 bg-blue-50 dark:bg-blue-950/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <MapPin className="w-4 h-4 text-blue-600" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-semibold text-foreground mb-1">Venue Search</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Find perfect venues based on capacity, location, and theme requirements
+                  </p>
+                </div>
               </div>
-              <h4 className="font-semibold text-green-800 dark:text-green-200 mb-2">Your hackathon plan is ready!</h4>
-              <p className="text-sm text-green-700 dark:text-green-300 mb-4">
-                All key components have been planned with {hackathonPlan.venues.length} venues,{" "}
-                {hackathonPlan.judges.length} judges, and {hackathonPlan.mentors.length} mentors.
-              </p>
-              <Button onClick={handleCreateLumaEvent} className="bg-green-600 hover:bg-green-700">
-                <ExternalLink className="w-4 h-4 mr-2" />
-                Create Luma Event
-              </Button>
             </CardContent>
           </Card>
-        )}
+
+          <Card className="hover:shadow-md transition-shadow">
+            <CardContent className="p-4">
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 bg-purple-50 dark:bg-purple-950/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Trophy className="w-4 h-4 text-purple-600" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-semibold text-foreground mb-1">Expert Judges</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Connect with industry experts and thought leaders to judge your hackathon
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="hover:shadow-md transition-shadow">
+            <CardContent className="p-4">
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 bg-green-50 dark:bg-green-950/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Users className="w-4 h-4 text-green-600" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-semibold text-foreground mb-1">Experienced Mentors</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Find skilled mentors to guide participants through the hackathon
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="hover:shadow-md transition-shadow">
+            <CardContent className="p-4">
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 bg-yellow-50 dark:bg-yellow-950/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <DollarSign className="w-4 h-4 text-yellow-600" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-semibold text-foreground mb-1">Sponsor Matching</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Discover sponsors aligned with your hackathon theme and budget
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Getting Started */}
+        <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200 dark:from-blue-950 dark:to-purple-950 dark:border-blue-800">
+          <CardContent className="p-6">
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center flex-shrink-0">
+                <ArrowLeft className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+              </div>
+              <div className="flex-1">
+                <h4 className="font-semibold text-blue-800 dark:text-blue-200 mb-2">
+                  Get Started
+                </h4>
+                <p className="text-sm text-blue-700 dark:text-blue-300 mb-3">
+                  Start chatting with HackGenie on the left. Try one of the quick start options or describe your hackathon idea.
+                </p>
+                <ul className="text-xs text-blue-600 dark:text-blue-400 space-y-1">
+                  <li>• Tell me about your theme and target audience</li>
+                  <li>• Specify your location and capacity requirements</li>
+                  <li>• I'll use AI tools to find everything you need</li>
+                </ul>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
-  )
+  );
 }
