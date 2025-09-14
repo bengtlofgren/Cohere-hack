@@ -40,12 +40,12 @@ export function ChatInterface() {
   });
 
   const quickStartOptions = [
-    "Climate tech hackathon for 100 people in SF",
-    "AI/ML hackathon at Stanford University",
-    "Fintech hackathon with corporate sponsors",
-    "Social impact hackathon for students",
-    "Healthcare innovation challenge",
-    "Web3 and blockchain hackathon",
+    "RAG model hackathon for 40 people in central London",
+    "AI/ML hackathon at Imperial College London",
+    "Fintech hackathon with Revolut and Monzo sponsors",
+    "Social impact hackathon for university students",
+    "Healthcare innovation challenge with NHS partnership",
+    "Web3 and blockchain hackathon in Shoreditch",
   ];
 
   const handleSubmit = (message: PromptInputMessage) => {
