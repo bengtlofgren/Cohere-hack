@@ -40,33 +40,7 @@ export async function searchVenues(criteria: {
       )
     }
 
-    // Adjust match scores based on theme
-    if (criteria.theme) {
-      const theme = criteria.theme.toLowerCase()
-      filteredVenues = filteredVenues.map((venue) => {
-        let adjustedScore = venue.matchScore
-
-        if (theme.includes("climate") || theme.includes("sustainability")) {
-          if (venue.name.includes("UCSF") || venue.name.includes("Stanford")) {
-            adjustedScore += 5
-          }
-        }
-
-        if (theme.includes("ai") || theme.includes("ml") || theme.includes("tech")) {
-          if (venue.name.includes("Google") || venue.name.includes("Microsoft")) {
-            adjustedScore += 5
-          }
-        }
-
-        if (theme.includes("fintech") || theme.includes("finance")) {
-          if (venue.name.includes("Salesforce") || venue.name.includes("Battery")) {
-            adjustedScore += 5
-          }
-        }
-
-        return { ...venue, matchScore: Math.min(adjustedScore, 100) }
-      })
-    }
+    // Theme filtering will be handled by Cohere rerank
 
     // Use Cohere rerank for better relevance
     const query = `hackathon venue ${criteria.theme || ''} ${criteria.location || ''} capacity ${criteria.capacity || ''}`
@@ -104,27 +78,7 @@ export async function searchJudges(criteria: {
       )
     }
 
-    // Adjust scores based on theme
-    if (criteria.theme) {
-      const theme = criteria.theme.toLowerCase()
-      filteredJudges = filteredJudges.map((judge) => {
-        let adjustedScore = judge.matchScore
-
-        if (theme.includes("climate") && judge.expertise.some((exp) => exp.toLowerCase().includes("climate"))) {
-          adjustedScore += 8
-        }
-
-        if (theme.includes("ai") && judge.expertise.some((exp) => exp.toLowerCase().includes("ai"))) {
-          adjustedScore += 8
-        }
-
-        if (theme.includes("fintech") && judge.expertise.some((exp) => exp.toLowerCase().includes("fintech"))) {
-          adjustedScore += 8
-        }
-
-        return { ...judge, matchScore: Math.min(adjustedScore, 100) }
-      })
-    }
+    // Theme matching will be handled by Cohere rerank
 
     // Use Cohere rerank for better judge matching
     const query = `hackathon judge ${criteria.theme || ''} expertise ${criteria.expertise?.join(' ') || ''}`
@@ -170,28 +124,7 @@ export async function searchMentors(criteria: {
       )
     }
 
-    // Adjust scores based on theme
-    if (criteria.theme) {
-      const theme = criteria.theme.toLowerCase()
-      filteredMentors = filteredMentors.map((mentor) => {
-        let adjustedScore = mentor.matchScore
-
-        // Boost scores for relevant expertise
-        if (theme.includes("web") && mentor.expertise.some((exp) => exp.toLowerCase().includes("react"))) {
-          adjustedScore += 6
-        }
-
-        if (theme.includes("mobile") && mentor.expertise.some((exp) => exp.toLowerCase().includes("ios"))) {
-          adjustedScore += 6
-        }
-
-        if (theme.includes("data") && mentor.expertise.some((exp) => exp.toLowerCase().includes("data"))) {
-          adjustedScore += 6
-        }
-
-        return { ...mentor, matchScore: Math.min(adjustedScore, 100) }
-      })
-    }
+    // Theme matching will be handled by Cohere rerank
 
     // Use Cohere rerank for better mentor matching
     const query = `hackathon mentor ${criteria.theme || ''} skills ${criteria.skills?.join(' ') || ''} expertise ${criteria.expertise?.join(' ') || ''}`
@@ -225,27 +158,7 @@ export async function searchSponsors(criteria: {
       filteredSponsors = filteredSponsors.filter((sponsor) => sponsor.tier === criteria.tier)
     }
 
-    // Adjust scores based on theme
-    if (criteria.theme) {
-      const theme = criteria.theme.toLowerCase()
-      filteredSponsors = filteredSponsors.map((sponsor) => {
-        let adjustedScore = sponsor.matchScore
-
-        if (theme.includes("cloud") && (sponsor.name.includes("AWS") || sponsor.name.includes("Google Cloud"))) {
-          adjustedScore += 8
-        }
-
-        if (theme.includes("fintech") && sponsor.name.includes("Stripe")) {
-          adjustedScore += 8
-        }
-
-        if (theme.includes("communication") && sponsor.name.includes("Twilio")) {
-          adjustedScore += 8
-        }
-
-        return { ...sponsor, matchScore: Math.min(adjustedScore, 100) }
-      })
-    }
+    // Theme matching will be handled by Cohere rerank
 
     // Use Cohere rerank for better sponsor matching
     const query = `hackathon sponsor ${criteria.theme || ''} budget ${criteria.budget || ''}`
@@ -269,7 +182,7 @@ export async function rerankResults(query: string, results: any[], model: string
   try {
     if (!process.env.COHERE_API_KEY) {
       console.warn('COHERE_API_KEY not found, falling back to original order')
-      return results
+      return results.map(result => ({ ...result, matchScore: 85 })) // Default score when no reranking
     }
 
     // Prepare documents for reranking
@@ -301,7 +214,7 @@ export async function rerankResults(query: string, results: any[], model: string
 
     if (!response.ok) {
       console.warn(`Cohere rerank failed: ${response.statusText}, falling back to original order`)
-      return results
+      return results.map(result => ({ ...result, matchScore: 85 })) // Default score when reranking fails
     }
 
     const data = await response.json()
@@ -311,12 +224,13 @@ export async function rerankResults(query: string, results: any[], model: string
       .sort((a: any, b: any) => b.relevance_score - a.relevance_score)
       .map((item: any) => ({
         ...results[item.index],
+        matchScore: Math.round(item.relevance_score * 100), // Convert to percentage
         cohereRelevance: item.relevance_score
       }))
 
     return rerankedResults
   } catch (error) {
     console.warn('Cohere rerank error:', error)
-    return results
+    return results.map(result => ({ ...result, matchScore: 85 })) // Default score on error
   }
 }

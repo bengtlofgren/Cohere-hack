@@ -9,7 +9,7 @@ interface Judge {
   name: string;
   title: string;
   company: string;
-  matchScore: number;
+  matchScore?: number;
   rating: number;
   experience: number;
   judgedEvents: number;
@@ -100,7 +100,7 @@ export function JudgeSearchTool({ state, judges = [], error }: JudgeSearchToolPr
                   </div>
                 </div>
                 <div className="flex flex-col items-end gap-2">
-                  <Badge variant="outline" className="border-border text-foreground">{judge.matchScore}% Match</Badge>
+                  <Badge variant="outline" className="border-border text-foreground">{judge.matchScore || 85}% Match</Badge>
                   <div className="flex items-center gap-1">
                     {[...Array(5)].map((_, i) => (
                       <Star

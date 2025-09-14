@@ -28,11 +28,11 @@ export async function POST(req: Request) {
       model: cohere('command-r-plus'),
       messages,
       system: AGENT_SYSTEM_PROMPT,
-      // tools: {
-      //   rerank_venues: rerankVenuesTool,
-      //   rerank_stakeholders: rerankStakeholdersTool,
-      //   create_luma_event: createLumaEventTool,
-      // },
+      tools: {
+        rerank_venues: rerankVenuesTool,
+        rerank_stakeholders: rerankStakeholdersTool,
+        create_luma_event: createLumaEventTool,
+      },
       temperature: 0.7,
     })
 
