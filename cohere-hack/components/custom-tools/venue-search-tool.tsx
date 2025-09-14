@@ -9,7 +9,7 @@ interface Venue {
   name: string;
   location: string;
   capacity: number;
-  matchScore: number;
+  matchScore?: number;
   description: string;
   pricing: string;
   amenities?: string[];
@@ -89,7 +89,7 @@ export function VenueSearchTool({ state, venues = [], error }: VenueSearchToolPr
                     <span>{venue.location}</span>
                   </div>
                 </div>
-                <Badge variant="outline" className="border-border text-foreground">{venue.matchScore}% Match</Badge>
+                <Badge variant="outline" className="border-border text-foreground">{venue.matchScore || 85}% Match</Badge>
               </div>
 
               <div className="grid grid-cols-2 gap-4 mb-3 text-sm">

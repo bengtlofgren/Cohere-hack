@@ -5,9 +5,7 @@
     "role": "judge",
     "expertise": ["Climate Tech", "Venture Capital", "Sustainability"],
     "company": "Breakthrough Energy Ventures",
-    "bio": "Partner at Breakthrough Energy Ventures with 15+ years investing in climate solutions. Former Tesla executive.",
-    "matchScore": 96,
-    "confidence": 94
+    "bio": "Partner at Breakthrough Energy Ventures with 15+ years investing in climate solutions. Former Tesla executive."
   },
   {
     "id": "judge-2",
@@ -15,9 +13,7 @@
     "role": "judge",
     "expertise": ["AI/ML", "Computer Vision", "Robotics"],
     "company": "OpenAI",
-    "bio": "Research Scientist at OpenAI specializing in computer vision and robotics applications.",
-    "matchScore": 93,
-    "confidence": 91
+    "bio": "Research Scientist at OpenAI specializing in computer vision and robotics applications."
   },
   {
     "id": "judge-3",
@@ -25,9 +21,7 @@
     "role": "judge",
     "expertise": ["Fintech", "Blockchain", "Digital Payments"],
     "company": "Stripe",
-    "bio": "Head of Emerging Markets at Stripe, PhD in Economics from Stanford. Expert in financial inclusion.",
-    "matchScore": 89,
-    "confidence": 87
+    "bio": "Head of Emerging Markets at Stripe, PhD in Economics from Stanford. Expert in financial inclusion."
   },
   {
     "id": "judge-4",
@@ -35,9 +29,7 @@
     "role": "judge",
     "expertise": ["Healthcare", "Biotech", "Medical Devices"],
     "company": "Johnson & Johnson Innovation",
-    "bio": "VP of Digital Health at J&J Innovation, former physician turned healthcare entrepreneur.",
-    "matchScore": 91,
-    "confidence": 89
+    "bio": "VP of Digital Health at J&J Innovation, former physician turned healthcare entrepreneur."
   },
   {
     "id": "judge-5",
@@ -45,8 +37,6 @@
     "role": "judge",
     "expertise": ["EdTech", "Social Impact", "Non-profit"],
     "company": "Khan Academy",
-    "bio": "Chief Product Officer at Khan Academy, passionate about democratizing education through technology.",
-    "matchScore": 88,
-    "confidence": 86
+    "bio": "Chief Product Officer at Khan Academy, passionate about democratizing education through technology."
   }
 ]

@@ -6,8 +6,7 @@ export interface Venue {
   pricing: string
   description: string
   amenities: string[]
-  matchScore: number
-  confidence: number
+  matchScore?: number
 }
 
 export interface Stakeholder {
@@ -17,8 +16,7 @@ export interface Stakeholder {
   expertise: string[]
   company: string
   bio: string
-  matchScore: number
-  confidence: number
+  matchScore?: number
   avatar?: string
 }
 
@@ -28,8 +26,7 @@ export interface Sponsor {
   tier: "title" | "gold" | "silver" | "bronze"
   contribution: string
   requirements: string[]
-  matchScore: number
-  confidence: number
+  matchScore?: number
   logo?: string
 }
 

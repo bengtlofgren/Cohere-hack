@@ -9,7 +9,7 @@ interface Sponsor {
   name: string;
   industry: string;
   location: string;
-  matchScore: number;
+  matchScore?: number;
   tier: string;
   sponsorshipAmount: number;
   eventsSponsored: number;
@@ -148,7 +148,7 @@ export function SponsorSearchTool({
                     variant="outline"
                     className="border-border text-foreground"
                   >
-                    {sponsor.matchScore}% Match
+                    {sponsor.matchScore || 85}% Match
                   </Badge>
                   <Badge className={getTierColor(sponsor.tier)}>
                     {sponsor.tier}
