@@ -1,5 +1,5 @@
 import { streamText } from 'ai'
-import { openai } from '@ai-sdk/openai'
+import { cohere } from '@ai-sdk/cohere'
 import { rerankVenuesTool, rerankStakeholdersTool, createLumaEventTool } from '@/lib/agent-tools'
 import { AGENT_SYSTEM_PROMPT } from '@/lib/agent-prompt'
 
@@ -17,13 +17,6 @@ export async function POST(req: Request) {
       })
     }
 
-    if (!process.env.OPENAI_API_KEY) {
-      return new Response(JSON.stringify({ error: 'OpenAI API key not configured' }), {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' },
-      })
-    }
-
     if (!process.env.COHERE_API_KEY) {
       return new Response(JSON.stringify({ error: 'Cohere API key not configured' }), {
         status: 500,
@@ -32,7 +25,7 @@ export async function POST(req: Request) {
     }
 
     const result = streamText({
-      model: openai('gpt-4-turbo'),
+      model: cohere('command-r-plus'),
       messages,
       system: AGENT_SYSTEM_PROMPT,
       // tools: {

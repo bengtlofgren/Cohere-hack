@@ -68,10 +68,10 @@ export async function searchVenues(criteria: {
       })
     }
 
-    // Sort by match score and return top 3-5
-    const topVenues = filteredVenues
-      .sort((a, b) => b.matchScore - a.matchScore)
-      .slice(0, Math.min(5, filteredVenues.length))
+    // Use Cohere rerank for better relevance
+    const query = `hackathon venue ${criteria.theme || ''} ${criteria.location || ''} capacity ${criteria.capacity || ''}`
+    const rankedVenues = await rerankResults(query.trim(), filteredVenues)
+    const topVenues = rankedVenues.slice(0, Math.min(5, filteredVenues.length))
 
     return {
       success: true,
@@ -126,7 +126,10 @@ export async function searchJudges(criteria: {
       })
     }
 
-    const topJudges = filteredJudges.sort((a, b) => b.matchScore - a.matchScore).slice(0, 3)
+    // Use Cohere rerank for better judge matching
+    const query = `hackathon judge ${criteria.theme || ''} expertise ${criteria.expertise?.join(' ') || ''}`
+    const rankedJudges = await rerankResults(query.trim(), filteredJudges)
+    const topJudges = rankedJudges.slice(0, 3)
 
     return {
       success: true,
@@ -190,7 +193,10 @@ export async function searchMentors(criteria: {
       })
     }
 
-    const topMentors = filteredMentors.sort((a, b) => b.matchScore - a.matchScore).slice(0, 5)
+    // Use Cohere rerank for better mentor matching
+    const query = `hackathon mentor ${criteria.theme || ''} skills ${criteria.skills?.join(' ') || ''} expertise ${criteria.expertise?.join(' ') || ''}`
+    const rankedMentors = await rerankResults(query.trim(), filteredMentors)
+    const topMentors = rankedMentors.slice(0, 5)
 
     return {
       success: true,
@@ -241,7 +247,10 @@ export async function searchSponsors(criteria: {
       })
     }
 
-    const topSponsors = filteredSponsors.sort((a, b) => b.matchScore - a.matchScore).slice(0, 4)
+    // Use Cohere rerank for better sponsor matching
+    const query = `hackathon sponsor ${criteria.theme || ''} budget ${criteria.budget || ''}`
+    const rankedSponsors = await rerankResults(query.trim(), filteredSponsors)
+    const topSponsors = rankedSponsors.slice(0, 4)
 
     return {
       success: true,
@@ -255,10 +264,59 @@ export async function searchSponsors(criteria: {
   }
 }
 
-// Cohere reranker placeholder
-export async function rerankResults(query: string, results: any[]): Promise<any[]> {
-  // Placeholder for Cohere reranker integration
-  // In a real implementation, this would call Cohere's rerank API
-  await new Promise((resolve) => setTimeout(resolve, 300))
-  return results
+// Cohere reranker implementation
+export async function rerankResults(query: string, results: any[], model: string = 'rerank-english-v3.0'): Promise<any[]> {
+  try {
+    if (!process.env.COHERE_API_KEY) {
+      console.warn('COHERE_API_KEY not found, falling back to original order')
+      return results
+    }
+
+    // Prepare documents for reranking
+    const documents = results.map(result => {
+      if (result.name && result.description) {
+        return `${result.name}: ${result.description}`
+      } else if (result.name && result.expertise) {
+        return `${result.name}: ${result.expertise.join(', ')}`
+      } else if (result.name) {
+        return result.name
+      }
+      return JSON.stringify(result)
+    })
+
+    const response = await fetch('https://api.cohere.ai/v1/rerank', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${process.env.COHERE_API_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        model,
+        query,
+        documents,
+        top_k: Math.min(results.length, 10),
+        return_documents: false
+      })
+    })
+
+    if (!response.ok) {
+      console.warn(`Cohere rerank failed: ${response.statusText}, falling back to original order`)
+      return results
+    }
+
+    const data = await response.json()
+    
+    // Reorder results based on Cohere's relevance scores
+    const rerankedResults = data.results
+      .sort((a: any, b: any) => b.relevance_score - a.relevance_score)
+      .map((item: any) => ({
+        ...results[item.index],
+        cohereRelevance: item.relevance_score
+      }))
+
+    return rerankedResults
+  } catch (error) {
+    console.warn('Cohere rerank error:', error)
+    return results
+  }
 }
