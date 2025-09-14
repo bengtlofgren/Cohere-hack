@@ -22,7 +22,6 @@ import {
 import { Response } from "@/components/ai-elements/response";
 import { VenueSearchTool } from "@/components/custom-tools/venue-search-tool";
 import { JudgeSearchTool } from "@/components/custom-tools/judge-search-tool";
-import { MentorSearchTool } from "@/components/custom-tools/mentor-search-tool";
 import { SponsorSearchTool } from "@/components/custom-tools/sponsor-search-tool";
 import type { ToolUIPart } from "ai";
 import {
@@ -69,7 +68,6 @@ export function ChatInterface() {
   // Plan selections
   const [selectedVenueId, setSelectedVenueId] = useState<string | null>(null);
   const [selectedJudgeIds, setSelectedJudgeIds] = useState<Set<string>>(new Set());
-  const [selectedMentorIds, setSelectedMentorIds] = useState<Set<string>>(new Set());
   const [selectedSponsorIds, setSelectedSponsorIds] = useState<Set<string>>(new Set());
 
 
@@ -89,7 +87,6 @@ export function ChatInterface() {
     const latest = {
       venues: [] as unknown[],
       judges: [] as unknown[],
-      mentors: [] as unknown[],
       sponsors: [] as unknown[],
     };
 
@@ -101,7 +98,6 @@ export function ChatInterface() {
             const data = (toolUIPart.output as { data?: unknown[] })?.data ?? [];
             if (toolUIPart.type.includes("searchVenues")) latest.venues = data;
             if (toolUIPart.type.includes("searchJudges")) latest.judges = data;
-            if (toolUIPart.type.includes("searchMentors")) latest.mentors = data;
             if (toolUIPart.type.includes("searchSponsors")) latest.sponsors = data;
           }
         }
@@ -201,13 +197,7 @@ export function ChatInterface() {
                                   error={errorMessage}
                                 />
                               )}
-                              {toolUIPart.type.includes("searchMentors") && (
-                                <MentorSearchTool
-                                  state={toolState}
-                                  mentors={toolData as never[]}
-                                  error={errorMessage}
-                                />
-                              )}
+                             
                               {toolUIPart.type.includes("searchSponsors") && (
                                 <SponsorSearchTool
                                   state={toolState}
@@ -342,68 +332,49 @@ export function ChatInterface() {
 
           <section>
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-sm font-semibold text-foreground">Mentors</h3>
-              <span className="text-xs text-muted-foreground">{selectedMentorIds.size} selected</span>
-            </div>
-            {plan.mentors.length === 0 ? (
-              <p className="text-xs text-muted-foreground">No mentors yet</p>
-            ) : (
-              <ul className="space-y-2">
-                {(plan.mentors as any[]).slice(0, 5).map((m: any, i: number) => {
-                  const id = m.id ?? String(i);
-                  const selected = selectedMentorIds.has(id);
-                  return (
-                    <li key={id} className={`rounded-md border p-2 text-sm transition-colors ${selected ? "border-primary bg-primary/5" : ""}`}>
-                      <label className="flex items-start gap-2 cursor-pointer">
-                        <input
-                          type="checkbox"
-                          className="mt-0.5 h-4 w-4"
-                          checked={selected}
-                          onChange={() => toggleFromSet(setSelectedMentorIds, id)}
-                          aria-label={`Select mentor ${m.name}`}
-                        />
-                        <div className="flex-1 min-w-0">
-                          <div className="font-medium truncate">{m.name || "Mentor"}</div>
-                          <div className="text-xs text-muted-foreground truncate">{m.title || m.company || ""}</div>
-                        </div>
-                      </label>
-                    </li>
-                  );
-                })}
-              </ul>
-            )}
-          </section>
-
-          <section>
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="text-sm font-semibold text-foreground">Sponsors</h3>
-              <span className="text-xs text-muted-foreground">{selectedSponsorIds.size} selected</span>
+              <h3 className="text-sm font-semibold text-foreground">
+                Sponsors
+              </h3>
+              <span className="text-xs text-muted-foreground">
+                {selectedSponsorIds.size} selected
+              </span>
             </div>
             {plan.sponsors.length === 0 ? (
               <p className="text-xs text-muted-foreground">No sponsors yet</p>
             ) : (
               <ul className="space-y-2">
-                {(plan.sponsors as any[]).slice(0, 5).map((s: any, i: number) => {
-                  const id = s.id ?? String(i);
-                  const selected = selectedSponsorIds.has(id);
-                  return (
-                    <li key={id} className={`rounded-md border p-2 text-sm transition-colors ${selected ? "border-primary bg-primary/5" : ""}`}>
-                      <label className="flex items-start gap-2 cursor-pointer">
-                        <input
-                          type="checkbox"
-                          className="mt-0.5 h-4 w-4"
-                          checked={selected}
-                          onChange={() => toggleFromSet(setSelectedSponsorIds, id)}
-                          aria-label={`Select sponsor ${s.name}`}
-                        />
-                        <div className="flex-1 min-w-0">
-                          <div className="font-medium truncate">{s.name || "Sponsor"}</div>
-                          <div className="text-xs text-muted-foreground truncate">{s.industry || s.location || ""}</div>
-                        </div>
-                      </label>
-                    </li>
-                  );
-                })}
+                {(plan.sponsors as any[])
+                  .slice(0, 5)
+                  .map((s: any, i: number) => {
+                    const id = s.id ?? String(i);
+                    const selected = selectedSponsorIds.has(id);
+                    return (
+                      <li
+                        key={id}
+                        className={`rounded-md border p-2 text-sm transition-colors ${selected ? "border-primary bg-primary/5" : ""}`}
+                      >
+                        <label className="flex items-start gap-2 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            className="mt-0.5 h-4 w-4"
+                            checked={selected}
+                            onChange={() =>
+                              toggleFromSet(setSelectedSponsorIds, id)
+                            }
+                            aria-label={`Select sponsor ${s.name}`}
+                          />
+                          <div className="flex-1 min-w-0">
+                            <div className="font-medium truncate">
+                              {s.name || "Sponsor"}
+                            </div>
+                            <div className="text-xs text-muted-foreground truncate">
+                              {s.industry || s.location || ""}
+                            </div>
+                          </div>
+                        </label>
+                      </li>
+                    );
+                  })}
               </ul>
             )}
           </section>
@@ -421,14 +392,15 @@ export function ChatInterface() {
               try {
                 // Prefer success variant if available
                 // @ts-ignore - success is available in sonner v2
-                toast.success("Luma event created", { description: `${name} (id: ${id})` });
+                toast.success("Luma event created", {
+                  description: `${name} (id: ${id})`,
+                });
               } catch {
                 toast("Luma event created: " + name + " (id: " + id + ")");
               }
               // Clear selections after success
               setSelectedVenueId(null);
               setSelectedJudgeIds(new Set());
-              setSelectedMentorIds(new Set());
               setSelectedSponsorIds(new Set());
             }}
             className={`w-full rounded-md px-3 py-2 text-sm font-medium shadow-sm transition-colors ${
@@ -437,9 +409,10 @@ export function ChatInterface() {
                 : "bg-muted text-muted-foreground cursor-not-allowed"
             }`}
           >
-            {canCreateLuma ? "Create Luma Event" : "Select a venue and ≥1 judge"}
+            {canCreateLuma
+              ? "Create Luma Event"
+              : "Select a venue and ≥1 judge"}
           </button>
-
         </div>
       </aside>
     </div>

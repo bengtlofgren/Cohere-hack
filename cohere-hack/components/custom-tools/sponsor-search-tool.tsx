@@ -2,7 +2,9 @@
 
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { DollarSign, Target } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { DollarSign, Target, Mail } from "lucide-react";
+import { toast } from "sonner";
 
 interface Sponsor {
   id?: string;
@@ -205,12 +207,23 @@ export function SponsorSearchTool({
               )}
 
               {sponsor.contactPerson && (
-                <div className="text-xs text-muted-foreground">
-                  <span className="font-medium">Contact:</span>{" "}
-                  {sponsor.contactPerson}
-                  {sponsor.responseTime && (
-                    <span> • Response time: {sponsor.responseTime}</span>
-                  )}
+                <div className="flex items-center justify-between">
+                  <div className="text-xs text-muted-foreground">
+                    <span className="font-medium">Contact:</span>{" "}
+                    {sponsor.contactPerson}
+                    {sponsor.responseTime && (
+                      <span> • Response time: {sponsor.responseTime}</span>
+                    )}
+                  </div>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => toast.success(`Email sent to ${sponsor.contactPerson} at ${sponsor.name}`)}
+                    className="ml-2"
+                  >
+                    <Mail className="w-3 h-3 mr-1" />
+                    Email
+                  </Button>
                 </div>
               )}
             </CardContent>
