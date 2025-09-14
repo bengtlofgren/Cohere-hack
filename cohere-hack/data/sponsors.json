@@ -1,56 +1,74 @@
 [
   {
     "id": "sponsor-1",
-    "name": "Microsoft",
+    "name": "DeepMind",
     "tier": "title",
-    "contribution": "$50,000 + Azure credits",
-    "requirements": ["Logo placement", "Opening keynote", "Judging panel seat"],
+    "contribution": "£45,000 + AI/ML research credits",
+    "requirements": ["Logo placement", "Opening keynote", "AI ethics panel seat"],
     "matchScore": 95,
     "confidence": 93
   },
   {
     "id": "sponsor-2",
-    "name": "Google Cloud",
+    "name": "Revolut",
     "tier": "gold",
-    "contribution": "$25,000 + GCP credits",
-    "requirements": ["Workshop slot", "Booth space", "Swag distribution"],
+    "contribution": "£30,000 + API access",
+    "requirements": ["Fintech workshop", "Booth space", "Banking API challenges"],
     "matchScore": 92,
     "confidence": 90
   },
   {
     "id": "sponsor-3",
-    "name": "AWS",
+    "name": "ARM Holdings",
     "tier": "gold",
-    "contribution": "$20,000 + AWS credits",
-    "requirements": ["Technical workshop", "Mentor participation", "Prize category"],
+    "contribution": "£25,000 + Hardware credits",
+    "requirements": ["IoT workshop", "Technical mentoring", "Edge computing prize"],
     "matchScore": 89,
     "confidence": 87
   },
   {
     "id": "sponsor-4",
-    "name": "Stripe",
+    "name": "Monzo Bank",
     "tier": "silver",
-    "contribution": "$10,000 + API credits",
-    "requirements": ["Fintech challenge", "Mentor support", "Demo day presence"],
+    "contribution": "£15,000 + Banking APIs",
+    "requirements": ["Open banking challenge", "Mentor support", "Demo day presence"],
     "matchScore": 86,
     "confidence": 84
   },
   {
     "id": "sponsor-5",
-    "name": "Twilio",
+    "name": "Sky Betting & Gaming",
     "tier": "silver",
-    "contribution": "$8,000 + Communication APIs",
-    "requirements": ["API workshop", "Communication challenge", "Swag"],
+    "contribution": "£12,000 + Data analytics tools",
+    "requirements": ["Data science workshop", "Sports tech challenge", "Branded swag"],
     "matchScore": 84,
     "confidence": 82
   },
   {
     "id": "sponsor-6",
-    "name": "MongoDB",
+    "name": "Imagination Technologies",
     "tier": "bronze",
-    "contribution": "$5,000 + Database credits",
-    "requirements": ["Database workshop", "Technical mentoring", "Logo placement"],
+    "contribution": "£8,000 + GPU compute credits",
+    "requirements": ["Graphics workshop", "VR/AR mentoring", "Logo placement"],
     "matchScore": 82,
     "confidence": 80
+  },
+  {
+    "id": "sponsor-7",
+    "name": "Sage Group",
+    "tier": "bronze",
+    "contribution": "£6,000 + Business software access",
+    "requirements": ["Enterprise software workshop", "Business mentoring", "Startup prize"],
+    "matchScore": 80,
+    "confidence": 78
+  },
+  {
+    "id": "sponsor-8",
+    "name": "BT Group",
+    "tier": "silver",
+    "contribution": "£10,000 + Connectivity solutions",
+    "requirements": ["5G workshop", "Telecommunications challenge", "Network infrastructure"],
+    "matchScore": 85,
+    "confidence": 83
   }
 ]
