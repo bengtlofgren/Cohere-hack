@@ -1,22 +1,11 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { ChatInterface } from "@/components/chat-interface"
-import { PlanningBoard } from "@/components/planning-board"
-import type { HackathonPlan } from "@/types/hackathon"
+import { useState } from "react";
+import { ChatInterface } from "@/components/chat-interface";
+import { PlanningBoard } from "@/components/planning-board";
+import type { HackathonPlan } from "@/types/hackathon";
 
 export default function HackGeniePage() {
-  const [hackathonPlan, setHackathonPlan] = useState<HackathonPlan>({
-    title: "",
-    description: "",
-    date: "",
-    duration: "",
-    venues: [],
-    judges: [],
-    mentors: [],
-    sponsors: [],
-  })
-
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -27,11 +16,17 @@ export default function HackGeniePage() {
               <span className="text-white font-bold text-sm">HG</span>
             </div>
             <div>
-              <h1 className="text-xl font-semibold text-foreground">HackGenie</h1>
-              <p className="text-sm text-muted-foreground">AI-Powered Hackathon Planning</p>
+              <h1 className="text-xl font-semibold text-foreground">
+                HackGenie
+              </h1>
+              <p className="text-sm text-muted-foreground">
+                AI-Powered Hackathon Planning
+              </p>
             </div>
           </div>
-          <div className="text-sm text-muted-foreground">Plan your hackathon in under 5 minutes</div>
+          <div className="text-sm text-muted-foreground">
+            Plan your hackathon in under 5 minutes
+          </div>
         </div>
       </header>
 
@@ -39,14 +34,14 @@ export default function HackGeniePage() {
       <div className="flex h-[calc(100vh-80px)]">
         {/* Chat Interface - Left 40% */}
         <div className="w-2/5 border-r border-border bg-card">
-          <ChatInterface hackathonPlan={hackathonPlan} setHackathonPlan={setHackathonPlan} />
+          <ChatInterface />
         </div>
 
         {/* Planning Board - Right 60% */}
         <div className="w-3/5 bg-background">
-          <PlanningBoard hackathonPlan={hackathonPlan} />
+          <PlanningBoard />
         </div>
       </div>
     </div>
-  )
+  );
 }

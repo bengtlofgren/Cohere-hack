@@ -20,7 +20,7 @@ export async function POST(req: Request) {
       searchVenues: tool({
         description:
           "Search for hackathon venues based on capacity, theme, and location",
-        parameters: z.object({
+        inputSchema: z.object({
           capacity: z.number().optional().describe("Number of participants"),
           theme: z
             .string()
@@ -35,7 +35,7 @@ export async function POST(req: Request) {
       }),
       searchJudges: tool({
         description: "Find expert judges for the hackathon",
-        parameters: z.object({
+        inputSchema: z.object({
           expertise: z
             .array(z.string())
             .optional()
@@ -49,7 +49,7 @@ export async function POST(req: Request) {
       }),
       searchMentors: tool({
         description: "Find experienced mentors for participants",
-        parameters: z.object({
+        inputSchema: z.object({
           expertise: z
             .array(z.string())
             .optional()
@@ -67,7 +67,7 @@ export async function POST(req: Request) {
       }),
       searchSponsors: tool({
         description: "Find potential sponsors for the hackathon",
-        parameters: z.object({
+        inputSchema: z.object({
           theme: z.string().optional().describe("Hackathon theme"),
           budget: z.number().optional().describe("Target budget amount"),
         }),
